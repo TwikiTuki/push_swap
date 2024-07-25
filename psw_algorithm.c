@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -31,10 +32,10 @@ void	psw_boundaries(size_t bounds[], int chunck, size_t ln)
 	size = ln / n_chuncks(ln) + ((size_t) chunck < (ln % n_chuncks(ln))); 
 	size_up = size / 2;
 	size_down = size / 2 + size % 2;
-	bounds[0] = bounds[3] + 1;				//TODO define smth
-	bounds[2] = bounds[0] + size_down - 1;
-	bounds[1] = bounds[2] + 1;
-	bounds[3] = bounds[1] + size_up - 1;
+	bounds[LOW_BOUND_MIN] = bounds[HIGH_BOUND_MAX] + 1;	
+	bounds[LOW_BOUND_MAX] = bounds[LOW_BOUND_MIN] + size_down - 1;
+	bounds[HIGH_BOUND_MIN] = bounds[LOW_BOUND_MAX] + 1;
+	bounds[HIGH_BOUND_MAX] = bounds[HIGH_BOUND_MIN] + size_up - 1;
 }	
 
 size_t	stk_len(t_stk_node *stack)
@@ -58,7 +59,7 @@ void	psw_semisort(t_stk_node *stacks[])
 	int				chunck;	
 
 	chunck = 0;
-	bounds[3] = 0 - 1;
+	bounds[HIGH_BOUND_MAX] = 0 - 1;
 	orig_len = stk_len(stacks[0]);
 	while (chunck++ < n_chuncks(orig_len))
 	{
@@ -66,11 +67,11 @@ void	psw_semisort(t_stk_node *stacks[])
 		psw_boundaries(bounds, chunck - 1, orig_len);
 		while (len--)
 		{
-			if ((stacks[0]->index >= bounds[0])
-				&& (stacks[0]->index <= bounds[3]))
+			if ((stacks[0]->index >= bounds[LOW_BOUND_MIN])
+				&& (stacks[0]->index <= bounds[HIGH_BOUND_MAX]))
 			{
 				stk_caller(stacks, "pb");
-				if (stacks[1]->index > bounds[2])
+				if (stacks[1]->index > bounds[LOW_BOUND_MAX])
 					stk_caller(stacks, "rb");
 			}
 			else

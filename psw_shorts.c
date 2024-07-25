@@ -11,12 +11,10 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-/*
-#define COMBINATIONS ((char*[]) {"012\0", "021\0", "120\0", 
-"102\0", "201\0", "210\0"})
-#define SOLUTIONS ((char*[]) {"", "sa\nra\n\0", "rra\n\0",  
-"sa\n\0", "ra\n\0", "sa\nrra\n\0"})
-*/
+
+#define COMBINATIONS ((char*[]) {"012\0", "021\0", "120\0", "102\0", "201\0", "210\0"})
+#define SOLUTIONS ((char*[]) {"", "sa\nra\n\0", "rra\n\0",  "sa\n\0", "ra\n\0", "sa\nrra\n\0"})
+
 #define LEN 6
 
 void	stk_strcaller(t_stk_node *stacks[], char *str)
@@ -94,7 +92,7 @@ void	stk_size3(t_stk_node *stacks[2])
 
 	if (stk_len(stacks[0]) == 2)
 	{
-		if (stacks[0]->index > stacks[0]->next->index) // TODO could be done in one
+		if (stacks[0]->index > stacks[0]->next->index)
 			stk_caller(stacks, "sa");
 		return ;
 	}
@@ -107,9 +105,7 @@ void	stk_size3(t_stk_node *stacks[2])
 	}
 	str[3] = '\0';
 	i = 0;
-	while (ft_strncmp(str, ((char *[]){"012\0", "021\0", "120\0", "102\0",
-				"201\0", "210\0"})[i], 4) && i < LEN)	// TODO no norminette needed
+	while (ft_strncmp(str, COMBINATIONS[i], 4) && i < LEN)	
 		i++;
-	stk_strcaller(stacks, (((char *[]){"", "sa\nra\n\0", "rra\n\0", "sa\n\0",
-				"ra\n\0", "sa\nrra\n\0"})[i]));			// TODO no norminette needed
+	stk_strcaller(stacks, (SOLUTIONS[i]));
 }

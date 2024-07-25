@@ -17,6 +17,15 @@
 # include "./libft/ft_printf/ft_printf.h"
 # include "./libft/libft/libft.h"
 
+typedef	enum	ChunckBound 
+{
+	LOW_BOUND_MIN,
+	LOW_BOUND_MAX,
+	HIGH_BOUND_MIN,
+	HIGH_BOUND_MAX
+}t_ChunckBound;
+
+
 typedef struct s_stk_node
 {
 	int					value;

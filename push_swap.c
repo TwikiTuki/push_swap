@@ -46,8 +46,11 @@ static size_t	init_stack_0(t_stk_node **stack, int argc, char **argv)
 	}
 	if (psw_check(args))
 		*stack = stk_init(args, len);
-	if (argc == 2 && ft_strchr(argv[1], ' ')) //TODO why ???
+	if (argc == 2)
+	{
+		printf("Wild free\n");
 		free_matrix((void **) args);
+	}
 	return (len);
 }
 

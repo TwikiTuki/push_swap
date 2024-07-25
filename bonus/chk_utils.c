@@ -16,12 +16,12 @@ int	chk_check_action(char *action)
 {
 	if (ft_strchr("rps", action[0]))
 	{
-		if (ft_strchr("ab", action[1]) > 0 && ft_strlen(action) == 2)
+		if (ft_strchr("ab", action[1]) != NULL && ft_strlen(action) == 2)
 			return (1);
 		if (action[0] == action[1] && ft_strlen(action) == 2)
 			return (1);
 		if (ft_strlen(action) == 3 && action [0] == 'r' && action[1] == 'r')
-			return (ft_strchr("abr", action[2]) > 0);
+			return (ft_strchr("abr", action[2]) != NULL);
 	}
 	else
 		return (0);
