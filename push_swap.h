@@ -6,7 +6,7 @@
 /*   By: jrenau-v <jrenau-v@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:04:52 by jrenau-v          #+#    #+#             */
-/*   Updated: 2023/02/04 16:07:08 by jrenau-v         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:35:57 by jrenau-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include <stdio.h>
+# include <mlx.h>
 # include "./libft/ft_printf/ft_printf.h"
 # include "./libft/libft/libft.h"
 

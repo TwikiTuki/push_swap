@@ -25,9 +25,10 @@ prnt:
 	echo DEPS $(DEPS)
 
 $(NAME): $(OBJS) $(OBJS_ND_DEPS)$(MAIN) $(NAME).h Makefile
+	make -C $(MINILIBX_DIR)
 	make -C $(LIB_DIR) G=$(G) 
 #	$(CC) $(PPF) $(OBJS) $(OBJS_ND_DEPS)$(MAIN) -L $(LIB_DIR) -l $(LIB) -o $(NAME) $(G)  
-	$(CC) $(PPF) $(OBJS) $(OBJS_ND_DEPS)$(MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -l $(LIB) -o $(NAME) $(G)  
+	$(CC) $(PPF) $(OBJS) $(OBJS_ND_DEPS)$(MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(NAME) $(G)  
 
 $(OBJS_ND_DEPS)%.o: %.c
 	mkdir -p $(OBJS_ND_DEPS)
@@ -45,6 +46,7 @@ test%: $(OBJS) ../tst_pushswap/stuff/test%.o
 clean:
 	make -C $(LIB_DIR) clean
 	make -C $(BONUS_DIR) clean
+	make -C $(MINILIBX_DIR) clean
 	-rm -rf $(OBJS_ND_DEPS)
 	
 fclean: clean
