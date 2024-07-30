@@ -1,6 +1,8 @@
 
 NAME=push_swap
-PPF= -Wall -Werror -Wextra
+MINILIBX_DIR=minilibx-linux
+MINILIBX_NAME=mlx_Linux
+PPF= -Wall -Werror -Wextra -I$(MINILIBX_DIR)
 LIB=ft
 LIB_DIR=./libft/
 BONUS=checker
@@ -24,8 +26,8 @@ prnt:
 
 $(NAME): $(OBJS) $(OBJS_ND_DEPS)$(MAIN) $(NAME).h Makefile
 	make -C $(LIB_DIR) G=$(G) 
-	$(CC) $(PPF) $(OBJS) $(OBJS_ND_DEPS)$(MAIN) -L $(LIB_DIR) -l $(LIB) -o $(NAME) $(G)  
-	$(CC) $(PPF) $(OBJS) $(OBJS_ND_DEPS)$(MAIN) -L $(LIB_DIR) -l $(LIB) -o $(NAME) $(G)  
+#	$(CC) $(PPF) $(OBJS) $(OBJS_ND_DEPS)$(MAIN) -L $(LIB_DIR) -l $(LIB) -o $(NAME) $(G)  
+	$(CC) $(PPF) $(OBJS) $(OBJS_ND_DEPS)$(MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -l $(LIB) -o $(NAME) $(G)  
 
 $(OBJS_ND_DEPS)%.o: %.c
 	mkdir -p $(OBJS_ND_DEPS)
@@ -53,6 +55,10 @@ fclean: clean
 	-rm -f $(BONUS)
 
 re: fclean all
+
+deps:
+	apt-get update && apt-get -y install xorg libxext-dev zlib1g-dev libbsd-dev
+
 
 
 .PHONY: prnt all fclean clean re 
