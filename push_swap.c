@@ -6,7 +6,7 @@
 /*   By: jrenau-v <jrenau-v@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 11:12:37 by jrenau-v          #+#    #+#             */
-/*   Updated: 2024/07/30 17:31:01 by jrenau-v         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:32:08 by jrenau-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,42 +54,101 @@ static size_t	init_stack_0(t_stk_node **stack, int argc, char **argv)
 	return (len);
 }
 
+
+void g_draw_area_A(t_mlx_img img)
+{
+	int		color;
+	char	*pxlbyte;
+
+	char	*begin;
+	char	*end;
+
+	
+	begin = img.data +  G_X_BEGIN_A * img.bytesxpxl + (G_Y_BEGIN_B + 0) * img.bytesxline;
+	end = begin + (G_WINDOW_WIDTH * G_WINDOW_HEIGHT * 4);
+	printf("begin: %p, end: %p, diff %d \n",begin, end, (int) (begin - end));
+	printf("G_X_BEGIN_A: %d, G_Y_BEGIN_B: %d\n", G_X_BEGIN_A, G_Y_BEGIN_B);
+	printf("bytesxpxl: %d, bytesxline: %d\n", img.bytesxpxl, img.bytesxline);
+
+/*
+	pxlbyte = begin;
+	int count = 0;
+	while (1)
+	{
+		printf("%d:: *begin: %p, *curr: %p, *end: %p, *diff: %d\n", count, begin, pxlbyte, end, (int) (end - pxlbyte)); 
+		*pxlbyte = 0xff;
+		pxlbyte--;
+		count++;
+	}
+*/
+
+	for (int i = G_AREAS_HEIGHT-1; i >= 0; i--)
+	{
+		pxlbyte = img.data + G_X_BEGIN_A * img.bytesxpxl + (G_Y_BEGIN_A - i) * img.bytesxline;
+		for (int j = G_AREAS_WIDTH-1; j >= 0; j--)
+		{
+//			pxlbyte -= 4;
+			printf("i: %d j: %d pxl %d\n", i, j, (int) (pxlbyte - begin));
+			color = 0xff77aaaa;
+//printf("sdaf\n");
+/*
+			for (int sdaf = 0; sdaf < 4; sdaf++)
+			{
+				printf("current: %p\n", pxlbyte + sdaf);
+				*(pxlbyte - sdaf) = 0xff;
+//				printf("fasd\n");
+			}
+*/
+			*((int*) pxlbyte) = color;
+			pxlbyte -= img.bytesxpxl;
+printf("kook\n");
+		}
+	}
+}
+
+
 void mlx_main(int argc, char **argv)
 {
 	void*	mlx;
 	void*	mlx_window;
-	void*	mlx_img;
-//	int 	pxl;
-	int		bitsxpxl;
-	int		bitsxline;
-	int		endian;
+//	void*	mlx_img; int 	pxl;
+//	int		bitsxpxl;
+//	int		bitsxline;
+//	int		endian;
+	int 	color;
+	//int 	bytesxpxl;
+	int		sdaf;
+	int 	pxl;
+
+	t_mlx_img	img;
 	
-	char*	mlx_img_data;
+	//char*	mlx_img_data;
 
 	(void)	argc;
 	(void)	argv;
 
 	mlx = mlx_init();
-printf("koko\n");
-	mlx_window = mlx_new_window(mlx, 600, 600, "Push Swap");
-printf("sdaf\n");
-	mlx_img = mlx_new_image(mlx, 600, 600);
-printf("fasdyy\n");
-	mlx_img_data = mlx_get_data_addr(mlx_img, &bitsxpxl, &bitsxline, &endian);
-	printf("bits per pixel: %d, bits per line: %d, endian %d\n", bitsxpxl, bitsxline, endian);
-	for (int i = 0; i < bitsxline * 50; i++)
+	mlx_window = mlx_new_window(mlx, G_WINDOW_WIDTH, G_WINDOW_HEIGHT, "Push Swap");
+	img.img = mlx_new_image(mlx, G_WINDOW_WIDTH, G_WINDOW_HEIGHT);
+	img.data = mlx_get_data_addr(img.img, &sdaf, &img.bytesxline, &img.endian);
+	img.bitsxpxl = sdaf;
+	img.bytesxpxl = img.bitsxpxl / 8;
+	for (int i = 0; i < G_WINDOW_HEIGHT; i++)
 	{
-		int color = 0;
-		color += 254;
-		color = color << 8;
-		color += 254;
-		color = color << 8;
-		color += 0;
-		color = color << 8;
-		color += 0;
-		*((int*)mlx_img_data + i) = color;
+		pxl = G_WINDOW_WIDTH * i;
+		//printf("i: %d pxl %d\n", i, pxl);
+		for (int j = 0; j < G_WINDOW_WIDTH; j++)
+		{
+			color = 0x88888888;
+			for (int k = 0; k < img.bytesxpxl; k++)
+				*(img.data+pxl+k) = 0x88;
+			*((int*)img.data + pxl) = color;
+			//printf("i: %d j: %d pxl %d\n", i, j, pxl);
+			pxl++;
+		}
 	}
-	mlx_put_image_to_window(mlx, mlx_window, mlx_img, 0, 0);
+	g_draw_area_A(img);
+	mlx_put_image_to_window(mlx, mlx_window, img.img, 0, 0);
 	mlx_loop(mlx);
 }
 

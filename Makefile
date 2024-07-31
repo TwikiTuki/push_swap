@@ -3,6 +3,7 @@ NAME=push_swap
 MINILIBX_DIR=minilibx-linux
 MINILIBX_NAME=mlx_Linux
 PPF= -Wall -Werror -Wextra -I$(MINILIBX_DIR)
+#PPF= -I$(MINILIBX_DIR)
 LIB=ft
 LIB_DIR=./libft/
 BONUS=checker
