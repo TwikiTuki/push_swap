@@ -1,5 +1,6 @@
 
 NAME=push_swap
+HEADERS=$(NAME).h psw_graphics.h
 MINILIBX_DIR=minilibx-linux
 MINILIBX_NAME=mlx_Linux
 PPF= -Wall -Werror -Wextra -I$(MINILIBX_DIR)
@@ -11,7 +12,7 @@ BONUS_DIR=./bonus/
 
 OBJS_ND_DEPS=./objs_nd_deps/
 MAIN=push_swap.o
-SRCS=psw_stk_basics.c psw_stk_operations.c psw_inpsanitize.c psw_algorithm.c psw_algorithm2.c psw_shorts.c psw_utils.c
+SRCS=psw_stk_basics.c psw_stk_operations.c psw_inpsanitize.c psw_algorithm.c psw_algorithm2.c psw_shorts.c psw_utils.c psw_graphics.c
 OBJS=$(addprefix $(OBJS_ND_DEPS), $(SRCS:.c=.o))
 DEPS=$(addprefix $(OBJS_ND_DEPS), $(SRCS:.c=.d))
 #OBJS=$(addprefix $(OBJS_ND_DEPS), $(SRCS:.c=.o) $(MAIN:.c=.o))
@@ -25,13 +26,13 @@ prnt:
 	echo OBJS $(OBJS)
 	echo DEPS $(DEPS)
 
-$(NAME): $(OBJS) $(OBJS_ND_DEPS)$(MAIN) $(NAME).h Makefile
+$(NAME): $(OBJS) $(OBJS_ND_DEPS)$(MAIN) $(HEADERS) Makefile
 	make -C $(MINILIBX_DIR)
 	make -C $(LIB_DIR) G=$(G) 
 #	$(CC) $(PPF) $(OBJS) $(OBJS_ND_DEPS)$(MAIN) -L $(LIB_DIR) -l $(LIB) -o $(NAME) $(G)  
 	$(CC) $(PPF) $(OBJS) $(OBJS_ND_DEPS)$(MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(NAME) $(G)  
 
-$(OBJS_ND_DEPS)%.o: %.c
+$(OBJS_ND_DEPS)%.o: %.c $(HEADERS)
 	mkdir -p $(OBJS_ND_DEPS)
 	$(CC) $(PPF) -MMD -c $< -o $@ $(G)
 

@@ -6,7 +6,7 @@
 /*   By: jrenau-v <jrenau-v@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:04:52 by jrenau-v          #+#    #+#             */
-/*   Updated: 2024/07/31 17:05:47 by jrenau-v         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:31:14 by jrenau-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,8 @@
 # define PUSH_SWAP_H
 
 # include <stdio.h>
-# include <mlx.h>
 # include "./libft/ft_printf/ft_printf.h"
 # include "./libft/libft/libft.h"
-
-# define G_WINDOW_WIDTH 500
-# define G_WINDOW_HEIGHT 500
-# define G_MARGIN 50
-# define G_AREAS_WIDTH (G_WINDOW_WIDTH - G_MARGIN) / 2 
-# define G_AREAS_HEIGHT (G_WINDOW_HEIGHT - G_MARGIN) / 2 
-
-# define G_X_BEGIN_A G_AREAS_WIDTH + G_MARGIN
-# define G_Y_BEGIN_A G_WINDOW_HEIGHT - G_MARGIN
-# define G_X_BEGIN_B G_WINDOW_WIDTH - G_MARGIN - G_AREAS_WIDTH
-# define G_Y_BEGIN_B G_WINDOW_HEIGHT - G_MARGIN
-
-typedef struct s_mlx_img
-{
-	void*	img;
-	char*	data;
-	int		bitsxpxl;
-	int		bytesxpxl;
-	int		bytesxline;
-	int		endian;
-} t_mlx_img;
-
-
 typedef	enum	ChunckBound 
 {
 	LOW_BOUND_MIN,
