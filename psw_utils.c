@@ -6,7 +6,7 @@
 /*   By: jrenau-v <jrenau-v@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 11:12:37 by jrenau-v          #+#    #+#             */
-/*   Updated: 2024/08/02 14:59:45 by jrenau-v         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:05:24 by jrenau-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	psw_prnt_error(void)
 {
-	write(2, "Errorrrr\n", 6);
+	write(2, "Error\n", 6);
 	return (0);
 }
 
