@@ -6,7 +6,7 @@
 /*   By: jrenau-v <jrenau-v@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 11:12:37 by jrenau-v          #+#    #+#             */
-/*   Updated: 2024/08/01 14:56:35 by jrenau-v         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:54:17 by jrenau-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ static size_t	init_stack_0(t_stk_node **stack, int argc, char **argv)
 	size_t	len;
 
 	*stack = NULL;
-	if (argc == 2 && ft_strchr(argv[1], ' '))
+	//if (argc == 2 && ft_strchr(argv[1], ' '))
+	if (argc == 2 && ft_strchr(argv[0], ' '))
 	{
-		args = ft_split(argv[1], ' ');
+		//args = ft_split(argv[1], ' ');
+		args = ft_split(argv[0], ' ');
 		if (!args)
 			return (0);
 		len = 0;
@@ -42,7 +44,7 @@ static size_t	init_stack_0(t_stk_node **stack, int argc, char **argv)
 	}
 	else
 	{
-		args = argv + 1;
+		args = argv;// + 1;
 		len = argc - 1;
 	}
 	if (psw_check(args))
@@ -60,14 +62,16 @@ int	main(int argc, char **argv)
 	t_stk_node	*stacks[2];
 	int			len;
 
-	mlx_main(argc, argv);
-	return(0);
+//	mlx_main(argc, argv);
+//	return(0);
 
 	if (argc <= 1)
 		return (0);
 	if (argc == 2 && argv[1][0] == '\0')
 		return (psw_prnt_error());
-	len = init_stack_0(&stacks[0], argc, argv);
+	if (argv[1][0] == '-' && argv[1][1] == 'g' && argv[1][0] == '\0')
+		argv++;
+	len = init_stack_0(&stacks[0], argc, argv + 1);
 	stacks[1] = NULL;
 	if (!stacks[0])
 		return (psw_prnt_error());

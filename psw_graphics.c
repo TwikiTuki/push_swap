@@ -1,6 +1,57 @@
-
 #include <stdio.h>
 #include "psw_graphics.h"
+
+t_point Point(int x, int y)
+{
+	t_point point;
+
+	point.x = x;
+	point.y = y;
+	
+	return (point);
+}
+
+void g_draw_square(t_mlx_img img, t_point begin, t_point size, t_point direction, int colorBegin, int colorEnd)
+{
+
+	(void)	colorEnd;
+	char	*pxlByte;
+
+	if (direction.x > 0)
+		direction.x = 1;
+	else 
+	{
+		direction.x = -1;
+		size.x *= direction.x;
+	}
+	if (direction.y > 0)
+		direction.y = 1;
+	else 
+		direction.y = -1;
+
+	//Outer loop iterates over columns while inner one iterates over lines. In other words it prints by comlumn.
+	for (int i = 0; i != size.x; i += direction.x)
+	{
+		pxlByte = img.data + (begin.x + i) * img.bytesxpxl + begin.y * img.bytesxline;
+		for (int j = 0; j < size.y; j++)
+		{
+			*((int*) pxlByte) =colorBegin;
+			pxlByte += (img.bytesxline * direction.y);
+		}
+	} 
+}
+
+void g_draw_area_B(t_mlx_img img)
+{
+
+	g_draw_square(img,
+		Point(G_X_BEGIN_B, G_Y_BEGIN_B),
+		Point(G_AREAS_WIDTH, G_AREAS_HEIGHT),
+		Point(1, -1),
+		0xff77aaaa,
+		0xff77aaaa
+	); 
+}
 
 void g_draw_area_A(t_mlx_img img)
 {
@@ -10,7 +61,7 @@ void g_draw_area_A(t_mlx_img img)
 	color = 0xff77aaaa;
 	for (int i = 0; i < G_AREAS_HEIGHT; i++)
 	{
-		pxlbyte = img.data + G_X_BEGIN_A * img.bytesxpxl + (G_Y_BEGIN_A - i - 1) * img.bytesxline;
+		pxlbyte = img.data + G_X_BEGIN_A * img.bytesxpxl + (G_Y_BEGIN_A - i - 0) * img.bytesxline;
 		for (int j = 0; j < G_AREAS_WIDTH; j++)
 		{
 			*((int*) pxlbyte) = color;
@@ -22,7 +73,7 @@ void g_draw_area_A(t_mlx_img img)
 void g_draw_pixel(t_mlx_img img, int x, int y, int color)
 {
 	char *pxl = img.data + x * img.bytesxpxl + y * img.bytesxline;
-//	printf("pixel: %d\n", (int) (pxl - img.data));
+	//printf("pixel: %d\n", (int) (pxl - img.data));
 	*((int*) pxl) = color;
 }
 
@@ -42,10 +93,10 @@ void mlx_main(int argc, char **argv)
 {
 	void*	mlx;
 	void*	mlx_window;
-//	void*	mlx_img; int 	pxl;
-//	int		bitsxpxl;
-//	int		bitsxline;
-//	int		endian;
+	//void*	mlx_img; int 	pxl;
+	//int		bitsxpxl;
+	//int		bitsxline;
+	//int		endian;
 	int 	color;
 	//int 	bytesxpxl;
 	int		sdaf;
@@ -86,7 +137,13 @@ void mlx_main(int argc, char **argv)
 		}
 	}
 	g_draw_area_A(img);
+	g_draw_area_B(img);
 	printf("sdaf\n");
+	g_draw_square(img, Point(250,250), Point(50,50), Point(1,1), 0x0066ff66, 0);
+	g_draw_square(img, Point(250,250), Point(50,50), Point(1,-1), 0x006666ff, 0);
+	g_draw_square(img, Point(250,250), Point(50,50), Point(-1,1), 0x00ff66ff, 0);
+	g_draw_square(img, Point(250,250), Point(50,50), Point(-1,-1), 0x00ffffff, 0);
+	
 	mlx_put_image_to_window(mlx, mlx_window, img.img, 0, 0);
 	printf("fasd\n");
 	mlx_loop(mlx);

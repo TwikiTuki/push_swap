@@ -1,8 +1,8 @@
 #ifndef PSW_GRAPHICS_H
 # define PSW_GRAPHICS_H
 
-# define G_WINDOW_WIDTH ((int) 1500)
-# define G_WINDOW_HEIGHT ((int) 1500)
+# define G_WINDOW_WIDTH ((int) 800)
+# define G_WINDOW_HEIGHT ((int) 3800)
 # define G_MARGIN ((int) 10)
 # define G_AREAS_WIDTH ((int) (G_WINDOW_WIDTH - G_MARGIN * 3) / 2) 
 # define G_AREAS_HEIGHT ((int) (G_WINDOW_HEIGHT - G_MARGIN * 2))
