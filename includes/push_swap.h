@@ -6,7 +6,7 @@
 /*   By: jrenau-v <jrenau-v@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:04:52 by jrenau-v          #+#    #+#             */
-/*   Updated: 2024/08/01 15:31:14 by jrenau-v         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:21:56 by jrenau-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PUSH_SWAP_H
 
 # include <stdio.h>
-# include "./libft/ft_printf/ft_printf.h"
-# include "./libft/libft/libft.h"
+# include <ft_printf.h>
+# include <libft.h>
 typedef	enum	ChunckBound 
 {
 	LOW_BOUND_MIN,
