@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrenau-v <jrenau-v@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 11:12:37 by jrenau-v          #+#    #+#             */
-/*   Updated: 2023/02/08 22:19:18 by jrenau-v         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:51:21 by jrenau-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "push_swap.h"
 #include "checker.h"
 
+/*
 static void	free_matrix(void **list)
 {
 	size_t	i;
@@ -51,6 +52,7 @@ static size_t	init_stack_0(t_stk_node **stack, int argc, char **argv)
 		free_matrix((void **) args);
 	return (len);
 }
+*/
 
 int	main(int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: jrenau-v <jrenau-v@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:04:52 by jrenau-v          #+#    #+#             */
-/*   Updated: 2024/08/02 17:21:56 by jrenau-v         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:50:19 by jrenau-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void		stk_size3(t_stk_node *stakcs[2]);
 void		stk_size5(t_stk_node *stakcs[2]);
 
 /*psw_utils.c*/
-int			psw_prnt_error(void);
-int			check_sorted(t_stk_node *stack);
+int				psw_prnt_error(void);
+int				check_sorted(t_stk_node *stack);
+size_t	init_stack_0(t_stk_node **stack, int argc, char **argv);
+void		free_matrix(void **list);
 #endif

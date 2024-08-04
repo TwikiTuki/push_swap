@@ -18,7 +18,7 @@ LIB_DIR=./libft/
 # Headers and includes
 LIB_FT_HEADERS_DIRS=$(addprefix $(LIB_DIR)/, ft_printf get_next_line libft)
 HEADERS_DIR=includes/
-HEADERS_NAMES= $(PSW_NAME).h psw_graphics.h
+HEADERS_NAMES=$(PSW_NAME).h $(GRP_NAME).h $(GRP_NAME).h
 HEADERS=$(addprefix $(HEADERS_DIR), $(HEADERS_NAMES))
 INCLUDES=$(addprefix -I, $(HEADERS_DIR) $(MINILIBX_DIR) $(LIB_FT_HEADERS_DIRS))
 
@@ -43,6 +43,16 @@ CHK_OBJS=$(addprefix $(OBJS_ND_DEPS), $(CHK_SRCS:.c=.o))
 CHK_DEPS=$(addprefix $(OBJS_ND_DEPS), $(CHK_SRCS:.c=.d))
 
 
+# Checker files
+GRP_NAME=graphics
+GRP_DIR=grp_src/
+GRP_MAIN=$(GRP_DIR)$(GRP_NAME).o
+GRP_SRCS_NAMES=grp_utils.c
+GRP_SRCS_PATH=$(addprefix $(GRP_DIR), $(GRP_SRCS_NAMES))
+GRP_SRCS=$(GRP_SRCS_PATH)
+GRP_OBJS=$(addprefix $(OBJS_ND_DEPS), $(GRP_SRCS:.c=.o))
+GRP_DEPS=$(addprefix $(OBJS_ND_DEPS), $(GRP_SRCS:.c=.d))
+
 all: $(PSW_NAME) $(CHK_NAME) $(GRP_NAME)
 
 prnt: #$(PSW_NAME)
@@ -66,6 +76,14 @@ objsdir:
 	mkdir -p $(OBJS_ND_DEPS)
 	mkdir -p $(OBJS_ND_DEPS)$(PSW_DIR)
 	mkdir -p $(OBJS_ND_DEPS)$(CHK_DIR)
+	mkdir -p $(OBJS_ND_DEPS)$(GRP_DIR)
+	
+$(PSW_NAME): objsdir $(PSW_OBJS) $(OBJS_ND_DEPS)$(PSW_MAIN) $(HEADERS) Makefile
+	@echo $(CYANCOLOR) "::: RULE FOR" $(@) $(NOCOLOR)
+	make -C $(LIB_DIR) G=$(G) 
+	@echo $(CYANCOLOR)"::: MAKING :::" $(@) $(NOCOLOR)
+	$(CC) $(PPF) $(PSW_OBJS) $(OBJS_ND_DEPS)$(PSW_MAIN) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(PSW_NAME) $(G)  
+	@echo $(CYANCOLOR)"::: done :::" $(@) $(NOCOLOR)
 
 $(CHK_NAME):  objsdir $(PSW_OBJS) $(CHK_OBJS) $(OBJS_ND_DEPS)$(CHK_MAIN) $(HEADERS) Makefile
 	@echo "::: minilibx"
@@ -74,13 +92,14 @@ $(CHK_NAME):  objsdir $(PSW_OBJS) $(CHK_OBJS) $(OBJS_ND_DEPS)$(CHK_MAIN) $(HEADE
 	make -C $(LIB_DIR) G=$(G) 
 	@echo " ::: ::: making checker"
 	$(CC) $(PPF) $(PSW_OBJS) $(CHK_OBJS) $(OBJS_ND_DEPS)$(CHK_MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(CHK_NAME) $(G)  
-	
-$(PSW_NAME): objsdir $(PSW_OBJS) $(OBJS_ND_DEPS)$(PSW_MAIN) $(HEADERS) Makefile
-	@echo $(CYANCOLOR) "::: RULE FOR" $(@) $(NOCOLOR)
+
+$(GRP_NAME):  objsdir $(PSW_OBJS) $(GRP_OBJS) $(OBJS_ND_DEPS)$(GRP_MAIN) $(HEADERS) Makefile
+	@echo "::: minilibx"
+	make -C $(MINILIBX_DIR)
+	@echo "::: libft"
 	make -C $(LIB_DIR) G=$(G) 
-	@echo $(CYANCOLOR)"::: MAKING :::" $(@) $(NOCOLOR)
-	$(CC) $(PPF) $(PSW_OBJS) $(OBJS_ND_DEPS)$(PSW_MAIN) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(PSW_NAME) $(G)  
-	@echo $(CYANCOLOR)"::: done :::" $(@) $(NOCOLOR)
+	@echo " ::: ::: making checker"
+	$(CC) $(PPF) $(PSW_OBJS) $(GRP_OBJS) $(OBJS_ND_DEPS)$(GRP_MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(GRP_NAME) $(G)  
 
 #$(OBJS_ND_DEPS)$(CHK_DIR)%.o: %.c $(HEADERS)
 #	@echo "::: MAKING" $(@)
