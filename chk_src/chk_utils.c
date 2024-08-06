@@ -28,29 +28,42 @@ int	chk_check_action(char *action)
 	return (0);
 }
 
-int	chk_run_actions(t_stk_node *stacks[2])
+int	chk_run_action(t_stk_node *stacks[2])
 {
 	char	*action;
 	int		i;
 
+	action = get_next_line(0);
+	printf("Action: %s\n", action);
+	if (!action)
+		return (-1);
+	i = 0;
+	while (action[i] && action[i] != '\n')
+		i++;
+	action[i] = '\0';
+	if (!chk_check_action(action))
+	{
+		free(action);
+		stk_clear(&stacks[0]);
+		stk_clear(&stacks[1]);
+		return (psw_prnt_error());
+	}
+	stk_caller(stacks, action);
+	stk_print(stacks[0]);
+	stk_print(stacks[1]);
+	free(action);
+	return (1);
+}
+
+int	chk_run_actions(t_stk_node *stacks[2])
+{
+	int ret;
+
 	while (1)
 	{
-		action = get_next_line(0);
-		if (!action)
-			break ;
-		i = 0;
-		while (action[i] && action[i] != '\n')
-			i++;
-		action[i] = '\0';
-		if (!chk_check_action(action))
-		{
-			free(action);
-			stk_clear(&stacks[0]);
-			stk_clear(&stacks[1]);
-			return (psw_prnt_error());
-		}
-		stk_caller(stacks, action);
-		free(action);
+		ret = chk_run_action(stacks);
+		if (ret <= 0)
+			return (ret);
 	}
 	return (1);
 }
