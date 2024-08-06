@@ -34,9 +34,7 @@ typedef struct s_stk_node
 }	t_stk_node;
 
 /*push_swap*/
-int			main(int argc, char **argv);
-int			psw_prnt_error(void);
-void		psw_long_sort(t_stk_node *stacks[]);
+//int			main(int argc, char **argv);
 
 /*psw_stk_basics.c*/
 t_stk_node	*stk_last(t_stk_node *stack);
@@ -74,8 +72,9 @@ void		stk_size3(t_stk_node *stakcs[2]);
 void		stk_size5(t_stk_node *stakcs[2]);
 
 /*psw_utils.c*/
-int				psw_prnt_error(void);
-int				check_sorted(t_stk_node *stack);
-size_t	init_stack_0(t_stk_node **stack, int argc, char **argv);
+int			psw_prnt_error(void);
+int			check_sorted(t_stk_node *stack);
+size_t		init_stack_0(t_stk_node **stack, int argc, char **argv);
 void		free_matrix(void **list);
+int			psw_prnt_error(void);
 #endif

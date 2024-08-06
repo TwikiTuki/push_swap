@@ -12,6 +12,8 @@
 # define G_X_BEGIN_B ((coord_val) G_WINDOW_WIDTH - G_MARGIN - G_AREAS_WIDTH)
 # define G_Y_BEGIN_B ((coord_val) G_WINDOW_HEIGHT - G_MARGIN)
 
+# define G_SLEEP 1000000
+
 # include <mlx.h>
 
 typedef int coord_val;
@@ -44,5 +46,6 @@ void g_draw_square(t_mlx_img img, t_point begin, t_point size, t_point direction
 void g_draw_area_B(t_mlx_img img);
 void g_draw_area_A(t_mlx_img img);
 void g_draw_pixel(t_mlx_img img, coord_val x, coord_val y, int color);
+int grp_average_color(unsigned int color0, unsigned int color1, t_point division);
 t_point g_pixel_coords(t_mlx_img img, char *pixel);
 #endif

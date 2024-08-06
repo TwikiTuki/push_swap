@@ -93,13 +93,13 @@ $(CHK_NAME):  objsdir $(PSW_OBJS) $(CHK_OBJS) $(OBJS_ND_DEPS)$(CHK_MAIN) $(HEADE
 	@echo " ::: ::: making checker"
 	$(CC) $(PPF) $(PSW_OBJS) $(CHK_OBJS) $(OBJS_ND_DEPS)$(CHK_MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(CHK_NAME) $(G)  
 
-$(GRP_NAME):  objsdir $(PSW_OBJS) $(GRP_OBJS) $(OBJS_ND_DEPS)$(GRP_MAIN) $(HEADERS) Makefile
+$(GRP_NAME):  objsdir $(PSW_OBJS) $(CHK_OBJS) $(GRP_OBJS) $(OBJS_ND_DEPS)$(GRP_MAIN) $(HEADERS) Makefile
 	@echo "::: minilibx"
 	make -C $(MINILIBX_DIR)
 	@echo "::: libft"
 	make -C $(LIB_DIR) G=$(G) 
 	@echo " ::: ::: making checker"
-	$(CC) $(PPF) $(PSW_OBJS) $(GRP_OBJS) $(OBJS_ND_DEPS)$(GRP_MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(GRP_NAME) $(G)  
+	$(CC) $(PPF) $(PSW_OBJS) $(CHK_OBJS) $(GRP_OBJS) $(OBJS_ND_DEPS)$(GRP_MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(GRP_NAME) $(G)  
 
 #$(OBJS_ND_DEPS)$(CHK_DIR)%.o: %.c $(HEADERS)
 #	@echo "::: MAKING" $(@)

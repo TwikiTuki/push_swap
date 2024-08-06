@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "push_swap.h"
 #include "graphics.h"
+#include "push_swap.h"
+
 int	main(int argc, char **argv)
 {
 	t_stk_node	*stacks[2];

@@ -17,4 +17,5 @@
 /* chk_utils.c */
 int	chk_check_action(char *action);
 int	chk_run_actions(t_stk_node *stacks[2]);
+int	chk_run_action(t_stk_node *stacks[2]);
 #endif
