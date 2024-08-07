@@ -12,7 +12,7 @@
 # define G_X_BEGIN_B ((coord_val) G_WINDOW_WIDTH - G_MARGIN - G_AREAS_WIDTH)
 # define G_Y_BEGIN_B ((coord_val) G_WINDOW_HEIGHT - G_MARGIN)
 
-# define G_SLEEP 1000000
+# define G_SLEEP 25000
 
 # include <mlx.h>
 
@@ -42,7 +42,7 @@ typedef	struct	s_point
 }t_point;
 
 t_point Point(coord_val x, coord_val y);
-void g_draw_square(t_mlx_img img, t_point begin, t_point size, t_point direction, int colorBegin, int colorEnd);
+void g_draw_square(t_mlx_img img, t_point begin, t_point size, t_point direction, int colorBegin, int colorEnd, int maxWidthForColorScaling);
 void g_draw_area_B(t_mlx_img img);
 void g_draw_area_A(t_mlx_img img);
 void g_draw_pixel(t_mlx_img img, coord_val x, coord_val y, int color);

@@ -17,7 +17,6 @@ static char grp_average_char(unsigned char color0, unsigned char color1, t_point
 	int		dif;
 
 	dif = ((int)color1 - (int)color0) * (int) division.x / (int) division.y; 
-	printf("::: color0: %d, dif: %d\n", color0, dif);
 
 	return ((char) ((int)color0 + dif));
 }
@@ -45,7 +44,7 @@ int grp_average_color(unsigned int color0, unsigned int color1, t_point division
 
 }
 
-void g_draw_square(t_mlx_img img, t_point begin, t_point size, t_point direction, int colorBegin, int colorEnd)
+void g_draw_square(t_mlx_img img, t_point begin, t_point size, t_point direction, int colorBegin, int colorEnd, int maxWidthForColorScaling)
 {
 
 	char	*pxlByte;
@@ -69,8 +68,8 @@ void g_draw_square(t_mlx_img img, t_point begin, t_point size, t_point direction
 	{
 		//pxlByte = img.data + (begin.x + i) * img.bytesxpxl + begin.y * img.bytesxline;
 		pxlByte = img.data + (begin.x + i * direction.x) * img.bytesxpxl + begin.y * img.bytesxline;
-		pxlByte += (img.bytesxline); //TODO why ??? 
-		color = grp_average_color(colorBegin, colorEnd, Point(i, G_AREAS_WIDTH));
+		//pxlByte += (img.bytesxline); //TODO why ??? 
+		color = grp_average_color(colorBegin, colorEnd, Point(i, maxWidthForColorScaling));
 		for (coord_val j = 0; j < size.y; j++)
 		{
 			*((int*) pxlByte) = color;
@@ -87,7 +86,8 @@ void g_draw_area_B(t_mlx_img img)
 		Point(G_AREAS_WIDTH, G_AREAS_HEIGHT),
 		Point(1, -1),
 		0xff77aaaa,
-		0xff77aaaa
+		0xff77aaaa,
+		G_AREAS_HEIGHT
 	); 
 }
 
@@ -97,6 +97,7 @@ void g_draw_area_A(t_mlx_img img)
 	char	*pxlbyte;
 
 	color = 0xff77aaaa;
+	color = 0xff770000;
 	for (coord_val i = 0; i < G_AREAS_HEIGHT; i++)
 	{
 		pxlbyte = img.data + G_X_BEGIN_A * img.bytesxpxl + (G_Y_BEGIN_A - i - 0) * img.bytesxline;

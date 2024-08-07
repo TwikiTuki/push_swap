@@ -1,4 +1,8 @@
 *.o
 *.d
 *.a
+*.swp
+*.swo
 push_swap
+checker
+graphics
