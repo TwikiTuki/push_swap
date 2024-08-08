@@ -34,7 +34,6 @@ int	chk_run_action(t_stk_node *stacks[2])
 	int		i;
 
 	action = get_next_line(0);
-	printf("Action: %s\n", action);
 	if (!action)
 		return (-1);
 	i = 0;
@@ -49,8 +48,7 @@ int	chk_run_action(t_stk_node *stacks[2])
 		return (psw_prnt_error());
 	}
 	stk_caller(stacks, action);
-	stk_print(stacks[0]);
-	stk_print(stacks[1]);
+	//stk_print(stacks[1]);
 	free(action);
 	return (1);
 }

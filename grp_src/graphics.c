@@ -4,6 +4,7 @@
 #include <checker.h>
 #include "graphics.h"
 
+
 int init_mlx_stuff(void** mlx, void** mlx_window, t_mlx_img* img)
 {
 	*mlx = mlx_init();
@@ -13,7 +14,9 @@ int init_mlx_stuff(void** mlx, void** mlx_window, t_mlx_img* img)
 	img->bytesxpxl = img->bitsxpxl / 8;
 	if (!*mlx || !*mlx_window || !img->data || !img->img)
 		return (0);	
-	g_draw_square(*img, Point(0,0), Point(G_WINDOW_WIDTH,G_WINDOW_HEIGHT), Point(1,1), 0xff88bbbb, 0x88bbbb);
+	//g_draw_square(*img, Point(0,0), Point(G_WINDOW_WIDTH,G_WINDOW_HEIGHT), Point(1,1), 0xff88bbbb, 0x88bbbb, 0);
+	g_draw_square(*img, Point(0, 0), Point(G_WINDOW_WIDTH/2 +1, G_WINDOW_HEIGHT), Point(1, 1), 0xff88bbbb, 0xc8e9e9, G_WINDOW_WIDTH/2);
+	g_draw_square(*img, Point(G_WINDOW_WIDTH, 0), Point(G_WINDOW_WIDTH/2 +1, G_WINDOW_HEIGHT), Point(-1, 1), 0xff88bbbb, 0xc8e9e9, G_WINDOW_WIDTH/2+5);
 	g_draw_area_A(*img);
 	g_draw_area_B(*img);
 	return 1; // TODO no memfree on NULL
@@ -22,14 +25,24 @@ int init_mlx_stuff(void** mlx, void** mlx_window, t_mlx_img* img)
 
 void print_index_to_A(int y_position, int order_index, t_mlx_img img, coord_val height ,int len)
 {
-	g_draw_square(img, Point(G_X_BEGIN_A, y_position * height + G_MARGIN), Point(G_AREAS_WIDTH * (order_index+1) / len, height), Point(-1, 1), 0xffaaffaa, 0xfffefefe);
-	//g_draw_square(img, Point(G_X_BEGIN_A, G_Y_BEGIN_A), Point(20,20), Point(1, 1), 0xff000000, 0x00000000);
+	g_draw_square(img,
+		Point(G_X_BEGIN_A, y_position * height + G_MARGIN),
+		Point(G_AREAS_WIDTH * (order_index+1) / len, height),
+		Point(-1, 1),
+		0xffaaffaa, 0xfffefefe,
+		G_AREAS_WIDTH
+	);
 }
 
 void print_index_to_B(int y_position, int order_index, t_mlx_img img, coord_val height ,int len)
 {
-	printf("STACK_B: y_position: %d, order_index: %d, len: %d\n", y_position, order_index, len);
-	g_draw_square(img, Point(G_X_BEGIN_B, y_position * height + G_MARGIN), Point(G_AREAS_WIDTH * (order_index+1) / len, height), Point(1, 1),  0xffaa5566, 0xfffefefe);
+	g_draw_square(img,
+		Point(G_X_BEGIN_B, y_position * height + G_MARGIN),
+		Point(G_AREAS_WIDTH * (order_index+1) / len, height),
+		Point(1, 1),
+		0xffaa5566, 0xfffefef,
+		G_AREAS_WIDTH
+	);
 }
 
 int print_stacks(t_stk_node* stacks[2], t_stack_id stackid, t_mlx_img img, size_t _len)
@@ -41,8 +54,7 @@ int print_stacks(t_stk_node* stacks[2], t_stack_id stackid, t_mlx_img img, size_
 	
 	node = stacks[stackid];
 	len = (coord_val) _len;
-	printf("::: ::: len: %d\n", len);
-	if (len < 0)
+	if (len < -1)
 		return (0);
 	height = G_AREAS_HEIGHT / len;
 	
@@ -67,78 +79,156 @@ typedef struct s_grp_loop_data {
 	void*			mlx_window;
 	t_mlx_img		img;
 	int 			len;
+	useconds_t		sleep;
+	int				paused;
+	int				next_action;
 } t_grp_loop_data;
+
+int grp_key_press(int key, t_grp_loop_data *data)
+{
+	printf("Pressed key: %d, %d\n", key, G_SPACE);
+
+	if (key == G_SPACE)
+	{
+		data->paused = !data->paused;
+		printf("paused: %d\n", data->paused);
+	}
+	else if (key == G_RIGHT)
+		data->next_action = 1;
+	else if (key == G_INTRO)
+		data->next_action = 1;
+	else if (key == G_CARRIAGE_RET)
+		data->next_action = 1;
+	else if (key == G_PLUS && data->sleep > 100)
+		data->sleep /= 1.1;
+	else if (key == G_MINUS && data->sleep < 1000000000)
+		data->sleep *= 1.1;
+	return (1);
+}
+
+int grp_key_relese(int key, t_grp_loop_data *data)
+{
+	(void) data;
+	printf("release\n");
+	printf("Key: %d\n", key);
+	return (1);
+}
 
 int grp_mlx_loop(void *_data)
 {
 	t_grp_loop_data* data = _data;
 	int ret;
+	
+//	printf("paused: %d, action: %d\n", data->paused, data->next_action);
+	if (data->paused && !data->next_action)
+		return (0);
+	data->next_action = 0;
 
-	printf("looping \n");
 
 	ret = chk_run_action(data->stacks);
 	if (ret <= 0)
 	{
-		while(1);
+		//while(1);
 	}
 	
-	printf("\n:::len %d: \n", data->len);
 	g_draw_area_A(data->img);
 	g_draw_area_B(data->img);
 	print_stacks(data->stacks, STACK_A, data->img, data->len);
 	print_stacks(data->stacks, STACK_B, data->img, data->len);
 	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img.img, 0, 0);
-	usleep(G_SLEEP);
+	usleep(data->sleep);
 	return 1;
+}
+
+int presss(int key, t_grp_loop_data data)
+{
+	(void) data;
+	(void) key;
+	
+	printf("Pressed a key\n");
+	return (1);
+}
+int _main(void)
+{
+	t_grp_loop_data data;
+
+	data.mlx= mlx_init();
+
+	data.mlx_window = mlx_new_window(data.mlx, 500, 500, "fkkkkk this shit");
+	mlx_hook(data.mlx_window, 2, 1L << 0, presss, &data);
+	mlx_loop(data.mlx);
+	return (0);
 }
 
 int main(int argc, char **argv)
 {
-	void*	mlx;
-	void*	mlx_window;
-	t_stk_node* 	stacks[2];
-	t_stk_node* 	fk_stacks[2]; //TODO delte
-	size_t 	len;
-
-	t_mlx_img	img;
+	t_grp_loop_data data;
 
 	if (argc <= 1)
 		return (0);
 	if (argc == 2 && argv[1][0] == '\0')
 		return (psw_prnt_error());
 
-	len = init_stack_0(&stacks[0], argc, argv + 1);
-	if (!stacks[0])
+	data.len = init_stack_0(&data.stacks[0], argc, argv + 1);
+	if (!data.stacks[0])
 		return (psw_prnt_error());
-	stacks[1] = NULL;
-	fk_stacks[0] = stacks[0];
-	fk_stacks[1] = stacks[0];
-	stk_print(fk_stacks[1]);
+	data.stacks[1] = NULL;
 	printf("\n");
 
-	printf("Strting mlx\n");
-	if (!init_mlx_stuff(&mlx, &mlx_window, &img))
+	printf("Starting mlx\n");
+	if (!init_mlx_stuff(&data.mlx, &data.mlx_window, &data.img))
+	{
+		printf("Error on init window\n");
 		return (1);
+	}
 
-	print_stacks(stacks, STACK_A, img, len);
-	//if (!print_stacks(fk_stacks, STACK_B, img, len))
-	//	printf("fKKK stk B\n");
-	/*
-	*/
+	print_stacks(data.stacks, STACK_A, data.img, data.len);
 
-	//g_draw_square(img, Point(250,250), Point(50,50), Point(1,1), 0x0066ff66, 0);
-	//g_draw_square(img, Point(250,250), Point(50,50), Point(1,-1), 0x006666ff, 0);
-	//g_draw_square(img, Point(250,250), Point(50,50), Point(-1,1), 0x00ff66ff, 0);
-	//g_draw_square(img, Point(250,250), Point(50,50), Point(-1,-1), 0x00ffffff, 0);
+	//g_draw_square(data.img, Point(250,250), Point(50,50), Point(1,1), 0x0066ff66, 0, 0);
+	//g_draw_square(data.img, Point(250,250), Point(50,50), Point(1,-1), 0x006666ff, 0);
+	//g_draw_square(data.img, Point(250,250), Point(50,50), Point(-1,1), 0x00ff66ff, 0);
+	//g_draw_square(data.img, Point(250,250), Point(50,50), Point(-1,-1), 0x00ffffff, 0);
 	
-	mlx_put_image_to_window(mlx, mlx_window, img.img, 0, 0);
-	t_grp_loop_data data;
-	data.stacks[0] = stacks[0];
-	data.stacks[1] = stacks[1];
-	data.mlx = mlx;
-	data.mlx_window = mlx_window;
-	data.img = img;
-	data.len = len;
-	mlx_loop_hook(mlx, grp_mlx_loop, &data);
-	mlx_loop(mlx);
+	mlx_put_image_to_window(data.mlx, data.mlx_window, data.img.img, 0, 0);
+	//while(1);
+	data.sleep = G_SLEEP; 
+	data.paused = 0; 
+	data.next_action = 0; 
+	mlx_hook(data.mlx_window, 17, 0, grp_key_press, &data);
+	mlx_hook(data.mlx_window, 2, 1L << 0, grp_key_press, &data);
+	mlx_hook(data.mlx_window, 3, 1L << 1, grp_key_relese, &data);
+	mlx_put_image_to_window(data.mlx, data.mlx_window, data.img.img, 0, 0);
+	mlx_loop_hook(data.mlx, grp_mlx_loop,&data);
+	mlx_loop(data.mlx);
+
+	return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
