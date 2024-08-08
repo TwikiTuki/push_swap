@@ -22,24 +22,34 @@ int init_mlx_stuff(void** mlx, void** mlx_window, t_mlx_img* img)
 	return 1; // TODO no memfree on NULL
 }
 
+int min(int val0, int val1)
+{
+	if (val0 < val1)
+		return (val0);
+	return (val1);
+}
 
-void print_index_to_A(int y_position, int order_index, t_mlx_img img, coord_val height ,int len)
+void print_index_to_A(int y_position, int order_index, t_mlx_img img, coord_val height ,int len, int y_adjustment)
 {
 	g_draw_square(img,
-		Point(G_X_BEGIN_A, y_position * height + G_MARGIN),
+		//Point(G_X_BEGIN_A, y_position * height + G_MARGIN),
+		Point(G_X_BEGIN_A, G_Y_BEGIN_A - y_position * height - min(y_position, y_adjustment)),
 		Point(G_AREAS_WIDTH * (order_index+1) / len, height),
-		Point(-1, 1),
+		//Point(-1, 1),
+		Point(-1, -1),
 		0xffaaffaa, 0xfffefefe,
 		G_AREAS_WIDTH
 	);
 }
 
-void print_index_to_B(int y_position, int order_index, t_mlx_img img, coord_val height ,int len)
+void print_index_to_B(int y_position, int order_index, t_mlx_img img, coord_val height ,int len, int y_adjustment)
 {
 	g_draw_square(img,
-		Point(G_X_BEGIN_B, y_position * height + G_MARGIN),
+		//Point(G_X_BEGIN_B, y_position * height + G_MARGIN),
+		Point(G_X_BEGIN_B, G_Y_BEGIN_A - y_position * height - min(y_position, y_adjustment)),
 		Point(G_AREAS_WIDTH * (order_index+1) / len, height),
-		Point(1, 1),
+		//Point(1, 1),
+		Point(1, -1),
 		0xffaa5566, 0xfffefef,
 		G_AREAS_WIDTH
 	);
@@ -51,24 +61,26 @@ int print_stacks(t_stk_node* stacks[2], t_stack_id stackid, t_mlx_img img, size_
 	t_stk_node* node;
 	int			i;
 	int 		len;
+	int			lonely_pixels;
 	
 	node = stacks[stackid];
 	len = (coord_val) _len;
 	if (len < -1)
 		return (0);
 	height = G_AREAS_HEIGHT / len;
+	lonely_pixels = G_AREAS_HEIGHT % len;
 	
-	i = len-stk_len(stacks[stackid]);
+	i = stk_len(stacks[stackid]) - 1;
 	while (node)
 	{
 		if (stackid == STACK_A)
-			print_index_to_A(i, node->index, img, height, len);
+			print_index_to_A(i, node->index, img, height, len, lonely_pixels);
 		else if (stackid == STACK_B)
-			print_index_to_B(i, node->index, img, height, len);
+			print_index_to_B(i, node->index, img, height, len, lonely_pixels);
 		else 
 			return (0);
 		node = node->next;
-		i++;
+		i--;
 	}
 	return 1;
 }
@@ -103,6 +115,14 @@ int grp_key_press(int key, t_grp_loop_data *data)
 		data->sleep /= 1.1;
 	else if (key == G_MINUS && data->sleep < 1000000000)
 		data->sleep *= 1.1;
+	else if (key == G_ESC)
+	{
+		mlx_destroy_window(data->mlx, data->mlx_window);
+		mlx_destroy_image(data->mlx, data->img.img);
+		stk_clear(&data->stacks[0]);
+		stk_clear(&data->stacks[1]);
+		exit(1);
+	}
 	return (1);
 }
 
@@ -163,6 +183,7 @@ int _main(void)
 int main(int argc, char **argv)
 {
 	t_grp_loop_data data;
+	printf("HAREAS_WIDTH: %d, HAREAS_HEIGHT: %d\n", G_AREAS_WIDTH, G_AREAS_HEIGHT);
 
 	if (argc <= 1)
 		return (0);
@@ -183,6 +204,7 @@ int main(int argc, char **argv)
 	}
 
 	print_stacks(data.stacks, STACK_A, data.img, data.len);
+	print_stacks(data.stacks, STACK_B, data.img, data.len);
 
 	//g_draw_square(data.img, Point(250,250), Point(50,50), Point(1,1), 0x0066ff66, 0, 0);
 	//g_draw_square(data.img, Point(250,250), Point(50,50), Point(1,-1), 0x006666ff, 0);

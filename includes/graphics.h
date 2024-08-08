@@ -25,6 +25,7 @@
 # define G_MINUS			65453
 # define G_INTRO			65421
 # define G_CARRIAGE_RET		62593
+# define G_ESC				65307
 
 
 # include <mlx.h>

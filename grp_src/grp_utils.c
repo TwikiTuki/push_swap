@@ -96,9 +96,16 @@ void g_draw_area_B(t_mlx_img img)
 
 void g_draw_area_A(t_mlx_img img)
 {
-	int		color;
-	char	*pxlbyte;
+	g_draw_square(img,
+		Point(G_X_BEGIN_A, G_Y_BEGIN_A),
+		Point(G_AREAS_WIDTH, G_AREAS_HEIGHT),
+		Point(-1, -1),
+		0xff77aaaa,
+		0xff77aaaa,
+		0
+	); 
 
+/*
 	color = 0xff77aaaa;
 	for (coord_val i = 0; i < G_AREAS_HEIGHT; i++)
 	{
@@ -109,6 +116,7 @@ void g_draw_area_A(t_mlx_img img)
 			pxlbyte -= img.bytesxpxl;
 		}
 	}
+*/
 }
 
 void g_draw_pixel(t_mlx_img img, coord_val x, coord_val y, int color)
