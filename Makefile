@@ -42,12 +42,11 @@ CHK_SRCS=$(CHK_SRCS_PATH)
 CHK_OBJS=$(addprefix $(OBJS_ND_DEPS), $(CHK_SRCS:.c=.o))
 CHK_DEPS=$(addprefix $(OBJS_ND_DEPS), $(CHK_SRCS:.c=.d))
 
-
 # Checker files
 GRP_NAME=graphics
 GRP_DIR=grp_src/
 GRP_MAIN=$(GRP_DIR)$(GRP_NAME).o
-GRP_SRCS_NAMES=grp_utils.c
+GRP_SRCS_NAMES=grp_utils.c grp_draw.c grp_print_stacks.c grp_hooks.c
 GRP_SRCS_PATH=$(addprefix $(GRP_DIR), $(GRP_SRCS_NAMES))
 GRP_SRCS=$(GRP_SRCS_PATH)
 GRP_OBJS=$(addprefix $(OBJS_ND_DEPS), $(GRP_SRCS:.c=.o))

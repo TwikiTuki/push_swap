@@ -48,7 +48,6 @@ int	chk_run_action(t_stk_node *stacks[2])
 		return (psw_prnt_error());
 	}
 	stk_caller(stacks, action);
-	//stk_print(stacks[1]);
 	free(action);
 	return (1);
 }
