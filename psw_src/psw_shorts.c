@@ -28,7 +28,7 @@ void	stk_strcaller(t_stk_node *stacks[], char *str)
 		if (*str == '\n')
 		{
 			action[i] = '\0';
-			stk_caller(stacks, action);
+			stk_caller_verbose(stacks, action);
 			i = 0;
 		}
 		else
@@ -46,27 +46,27 @@ void	stk_size5(t_stk_node *stacks[2])
 
 	max_index = stk_len(stacks[0]) - 1;
 	while (stk_len(stacks[0]) > 3)
-		stk_caller(stacks, "pb");
+		stk_caller_verbose(stacks, "pb");
 	stk_size3(stacks);
 	if (stacks[1]->next && stacks[1]->index < stacks[1]->next->index)
-		stk_caller(stacks, "sb");
+		stk_caller_verbose(stacks, "sb");
 	if (stacks[1]->index == max_index)
-		stk_caller(stacks, "pa");
+		stk_caller_verbose(stacks, "pa");
 	while (stk_len(stacks[1]))
 	{
 		if (stk_last(stacks[0])->index < stacks[1]->index
 			&& stacks[0]->index > stacks[1]->index)
-			stk_caller(stacks, "pa");
+			stk_caller_verbose(stacks, "pa");
 		else if (stacks[1]->next && stacks[0]->index == 2
 			&& stacks[1]->index == 1 && stacks[1]->next->index == 0)
-			stk_caller(stacks, "pa");
+			stk_caller_verbose(stacks, "pa");
 		else if (stacks[1]->index == 0 && stacks[0]->index == 1)
-			stk_caller(stacks, "pa");
+			stk_caller_verbose(stacks, "pa");
 		else
-			stk_caller(stacks, "rra");
+			stk_caller_verbose(stacks, "rra");
 	}
 	while (stacks[0]->index != 0)
-		stk_caller(stacks, "rra");
+		stk_caller_verbose(stacks, "rra");
 }
 
 static char	get_index(t_stk_node *stack, int value)
@@ -93,7 +93,7 @@ void	stk_size3(t_stk_node *stacks[2])
 	if (stk_len(stacks[0]) == 2)
 	{
 		if (stacks[0]->index > stacks[0]->next->index)
-			stk_caller(stacks, "sa");
+			stk_caller_verbose(stacks, "sa");
 		return ;
 	}
 	stka = stacks[0];

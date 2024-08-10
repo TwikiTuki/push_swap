@@ -12,22 +12,16 @@
 
 #include "push_swap.h"
 
-void	psw_debug_log(char *str, int freee)
+void	stk_caller_verbose(t_stk_node *stacks[2], char *action)
 {
-	if (str && 0)
-		ft_printf(str);
-	if (freee && str)
-		free(str);
+	ft_printf("%s\n", action);
+	stk_caller(stacks, action);
 }
 
 void	stk_caller(t_stk_node *stacks[2], char *action)
 {
-	static unsigned int	total;
 	int					s;
 
-	psw_debug_log(ft_itoa(total++), 1);
-	psw_debug_log("\t\t", 0);
-	ft_printf("%s\n", action);
 	s = ((ft_strlen(action) == 2 && action[1] == 'b')
 			|| (ft_strlen(action) == 3 && action[2] == 'b'));
 	if (action[0] == 's' && action[1] != 's')

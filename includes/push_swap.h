@@ -44,8 +44,8 @@ void		stk_print(t_stk_node *stk);
 int			psw_getindexes(t_stk_node **start);
 
 /*psw_stk_operions*/
-void		psw_debug_log(char *str, int freee);
 void		stk_caller(t_stk_node *stacks[2], char *action);	
+void		stk_caller_verbose(t_stk_node *stacks[2], char *action);	
 void		stk_push(t_stk_node **stk1, t_stk_node **stk2);
 void		stk_swap(t_stk_node *stk);
 void		stk_rotate(t_stk_node **stk, int reverse);
@@ -77,4 +77,6 @@ int			check_sorted(t_stk_node *stack);
 size_t		init_stack_0(t_stk_node **stack, int argc, char **argv);
 void		free_matrix(void **list);
 int			psw_prnt_error(void);
+int			psw_str_prnt_error(char *str);
+int			init_stacks(int argc, char **argv, t_stk_node *stacks[2], int* len);
 #endif

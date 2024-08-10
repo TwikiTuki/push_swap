@@ -13,6 +13,27 @@
 #include <stdlib.h>
 #include "push_swap.h"
 
+int init_stacks(int argc, char **argv, t_stk_node *stacks[2], int* len)
+{
+	if (argc <= 1)
+		return (0);
+	if (argc == 2 && argv[1][0] == '\0')
+		return (psw_prnt_error());
+	*len = init_stack_0(&stacks[0], argc, argv + 1);
+	stacks[1] = NULL;
+	if (!stacks[0])
+		return (psw_prnt_error());		
+	return (1);
+}
+
+
+int	psw_str_prnt_error(char *str)
+{
+	write(2, "Error: ", 7);
+	write(2, str, ft_strlen(str));
+	return (0);
+}
+
 int	psw_prnt_error(void)
 {
 	write(2, "Error\n", 6);

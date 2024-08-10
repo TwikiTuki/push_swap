@@ -57,16 +57,11 @@ static size_t	init_stack_0(t_stk_node **stack, int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_stk_node	*stacks[2];
+	int			len;
 
-	if (argc <= 1)
+	if (!init_stacks(argc, argv, stacks, &len))
 		return (0);
-	if (argc == 2 && argv[1][0] == '\0')
-		return (psw_prnt_error());
-	init_stack_0(&stacks[0], argc, argv);
-	stacks[1] = NULL;
-	if (!stacks[0])
-		return (psw_prnt_error());
-	stacks[1] = NULL;
+
 	if (!chk_run_actions(stacks))
 		return (0);
 	if (check_sorted(stacks[0]) && stacks[1] == NULL)

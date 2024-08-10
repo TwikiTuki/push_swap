@@ -70,12 +70,12 @@ void	psw_semisort(t_stk_node *stacks[])
 			if ((stacks[0]->index >= bounds[LOW_BOUND_MIN])
 				&& (stacks[0]->index <= bounds[HIGH_BOUND_MAX]))
 			{
-				stk_caller(stacks, "pb");
+				stk_caller_verbose(stacks, "pb");
 				if (stacks[1]->index > bounds[LOW_BOUND_MAX])
-					stk_caller(stacks, "rb");
+					stk_caller_verbose(stacks, "rb");
 			}
 			else
-				stk_caller(stacks, "ra");
+				stk_caller_verbose(stacks, "ra");
 		}
 	}
 }
@@ -83,12 +83,9 @@ void	psw_semisort(t_stk_node *stacks[])
 void	psw_long_sort(t_stk_node *stacks[])
 {
 	psw_semisort(stacks);
-	psw_debug_log("semisorted \n", 0);
 	while (stacks[1])
 	{
 		psw_pushback(stacks);
-		psw_debug_log("pushed back \n", 0);
 		psw_sorta(stacks);
-		psw_debug_log("sorted a\n", 0);
 	}
 }

@@ -19,17 +19,9 @@ int	main(int argc, char **argv)
 	t_stk_node	*stacks[2];
 	int			len;
 
-//	mlx_main(argc, argv);
-//	return(0);
-
-	if (argc <= 1)
+	if (!init_stacks(argc, argv, stacks, &len))
 		return (0);
-	if (argc == 2 && argv[1][0] == '\0')
-		return (psw_prnt_error());
-	len = init_stack_0(&stacks[0], argc, argv + 1);
-	stacks[1] = NULL;
-	if (!stacks[0])
-		return (psw_prnt_error());
+
 	if (len < 2 || check_sorted(stacks[0]))
 	{
 		stk_clear(&stacks[0]);

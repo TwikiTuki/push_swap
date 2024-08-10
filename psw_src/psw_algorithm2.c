@@ -67,15 +67,15 @@ void	psw_pushback(t_stk_node *stacks[2])
 		current = stacks[1]->index;
 		if (current >= target - 3)
 		{
-			stk_caller(stacks, "pa");
+			stk_caller_verbose(stacks, "pa");
 			if (current <= target - 2)
-				stk_caller(stacks, "ra");
+				stk_caller_verbose(stacks, "ra");
 		}
 
 		else if (!reverse)
-			stk_caller(stacks, "rb");
+			stk_caller_verbose(stacks, "rb");
 		else
-			stk_caller(stacks, "rrb");
+			stk_caller_verbose(stacks, "rrb");
 		if (current == target)
 			return ;
 	}
@@ -97,17 +97,17 @@ void	psw_sorta(t_stk_node *stacks[2])
 	last = lastNode->index;
 	penult = lastNode->previous->index;
 	if (stacks[0]->index == stacks[0]->next->index + 1)
-		stk_caller(stacks, "sa");
+		stk_caller_verbose(stacks, "sa");
 	nxt_target = ((long int) stacks[0]->index) - 1;
 	if (penult == nxt_target || penult == nxt_target - 1)
 	{
-		stk_caller(stacks, "rra");
-		stk_caller(stacks, "rra");
+		stk_caller_verbose(stacks, "rra");
+		stk_caller_verbose(stacks, "rra");
 	}
 	else if (last == nxt_target || last == nxt_target - 1)
-		stk_caller(stacks, "rra");
+		stk_caller_verbose(stacks, "rra");
 	if (stacks[0]->index > stacks[0]->next->index)
-		stk_caller(stacks, "sa");
+		stk_caller_verbose(stacks, "sa");
 	if (stacks[0]->index + 1 < nxt_target)
-		stk_caller(stacks, "ra");
+		stk_caller_verbose(stacks, "ra");
 }
