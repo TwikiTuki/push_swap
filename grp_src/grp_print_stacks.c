@@ -30,7 +30,7 @@ void grp_print_index_to_B(int y_pos, int order_index, t_mlx_img img, coord_val h
 	);
 }
 
-int grp_print_stacks(t_stk_node* stacks[2], t_stack_id stackid, t_mlx_img img, size_t _len)
+int grp_print_stack(t_stk_node* stacks[2], t_stack_id stackid, t_mlx_img img, size_t _len)
 {
 	coord_val height;
 	t_stk_node* node;

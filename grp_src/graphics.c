@@ -7,10 +7,7 @@ int main(int argc, char **argv)
 	if (!init_stacks(argc, argv, data.stacks, &data.len))
 		return (0);
 	if (data.stacks[0] == 0)
-	{
-		printf("fkkkk\n");
 		return(0);
-	}
 	if (data.len > G_AREAS_HEIGHT)
 		return (psw_str_prnt_error(
 			"Unable to print so much numbers. Increase height resolution\n"));

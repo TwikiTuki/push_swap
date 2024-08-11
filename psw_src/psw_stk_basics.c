@@ -100,20 +100,20 @@ int	psw_getindexes(t_stk_node **start)
 	to_sort = *start;
 	while (to_sort)
 	{
-		to_sort -> index = 0;
+		to_sort->index = 0;
 		to_cmpr = *start;
 		while (to_cmpr)
 		{
-			if (to_sort -> value > to_cmpr -> value)
-				to_sort -> index += 1;
-			if (to_sort -> value == to_cmpr -> value && to_sort != to_cmpr)
+			if (to_sort->value > to_cmpr->value)
+				to_sort->index += 1;
+			if (to_sort->value == to_cmpr->value && to_sort != to_cmpr)
 			{
 				stk_clear(start);
 				return (0);
 			}
-			to_cmpr = to_cmpr -> next;
+			to_cmpr = to_cmpr->next;
 		}
-		to_sort = to_sort -> next;
+		to_sort = to_sort->next;
 	}
 	return (1);
 }

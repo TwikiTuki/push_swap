@@ -26,6 +26,33 @@ int init_stacks(int argc, char **argv, t_stk_node *stacks[2], int* len)
 	return (1);
 }
 
+size_t	init_stack_0(t_stk_node **stack, int argc, char **argv)
+{
+	char	**args;
+	size_t	len;
+
+	*stack = NULL;
+	if (argc == 2 && ft_strchr(argv[0], ' '))
+	{
+		args = ft_split(argv[0], ' ');
+		if (!args)
+			return (0);
+		len = 0;
+		while (args[len])
+			len++;
+	}
+	else
+	{
+		args = argv;
+		len = argc - 1;
+	}
+	if (psw_check(args))
+		*stack = stk_init(args, len);
+	if (argc == 2)
+		free_matrix((void **) args);
+	return (len);
+}
+
 
 int	psw_str_prnt_error(char *str)
 {
@@ -64,36 +91,4 @@ void	free_matrix(void **list)
 		free(list[i++]);
 	free(list);
 	return ;
-}
-
-size_t	init_stack_0(t_stk_node **stack, int argc, char **argv)
-{
-	char	**args;
-	size_t	len;
-
-	*stack = NULL;
-	//if (argc == 2 && ft_strchr(argv[1], ' '))
-	if (argc == 2 && ft_strchr(argv[0], ' '))
-	{
-		//args = ft_split(argv[1], ' ');
-		args = ft_split(argv[0], ' ');
-		if (!args)
-			return (0);
-		len = 0;
-		while (args[len])
-			len++;
-	}
-	else
-	{
-		args = argv;// + 1;
-		len = argc - 1;
-	}
-	if (psw_check(args))
-		*stack = stk_init(args, len);
-	if (argc == 2)
-	{
-		printf("Wild free\n");
-		free_matrix((void **) args);
-	}
-	return (len);
 }

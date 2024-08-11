@@ -19,8 +19,8 @@
 # define G_X_BEGIN_B ((coord_val) G_WINDOW_WIDTH - G_MARGIN - G_AREAS_WIDTH)
 # define G_Y_BEGIN_B ((coord_val) G_WINDOW_HEIGHT - G_MARGIN)
 
-//# define G_SLEEP 1000000
-# define G_SLEEP			((useconds_t) sizeof(useconds_t) / 2);
+# define G_SLEEP			((useconds_t) 20)
+# define _G_SLEEP			((useconds_t) 1 << G_SLEEP)
 //# define G_MAX_SLEEP		((useconds_t) 1 << (sizeof(useconds_t) * 8 - 1))
 # define G_MAX_SLEEP		((useconds_t) 2000000) 
 
@@ -93,7 +93,7 @@ void grp_draw_area_A(t_mlx_img img);
 t_color_scaling ColorScaling(int color0, int color1, coord_val max_index);
 void grp_print_index_to_A(int y_position, int order_index, t_mlx_img img, coord_val height ,int len, int y_adjustment);
 void grp_print_index_to_B(int y_position, int order_index, t_mlx_img img, coord_val height ,int len, int y_adjustment);
-int grp_print_stacks(t_stk_node* stacks[2], t_stack_id stackid, t_mlx_img img, size_t _len);
+int grp_print_stack(t_stk_node* stacks[2], t_stack_id stackid, t_mlx_img img, size_t _len);
 
 /* grp_hooks.c */
 int grp_key_press(int key, t_grp_loop_data *data);

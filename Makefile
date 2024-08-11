@@ -6,7 +6,7 @@ BLUECOLOR='\033[0;34m'
 CYANCOLOR='\033[0;36m'
 
 # Random#
-PPF= -Wall -Werror -Wextra $(INCLUDES)
+PPF= -Wall -Werror -Wextra $(INCLUDES) -g
 OBJS_ND_DEPS=./objs_nd_deps/
 
 # Libraries
@@ -145,7 +145,7 @@ fclean: clean
 	echo fcleaning
 	make -C $(LIB_DIR) fclean
 	# make -C $(CHK_DIR) fclean
-	-rm -f $(PSW_NAME)
+	-rm -f $(PSW_NAME) $(CHK_NAME) $(GRP_NAME)
 	-rm -f $(BONUS)
 
 re: fclean all

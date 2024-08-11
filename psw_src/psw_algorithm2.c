@@ -12,19 +12,6 @@
 
 #include "push_swap.h"
 
-/*
-void	final_sort(t_stk_node *stacks[2])
-{
-	while (stacks[1])
-	{
-		psw_pushback(stacks);
-		psw_sorta(stacks);
-		ft_printf("stack[0] after psw_sorta");
-		stk_print(stacks[0]);
-		ft_printf("\n");
-	}
-}*/
-
 size_t	stk_max_index(t_stk_node *stack)
 {
 	size_t	max;
@@ -71,7 +58,6 @@ void	psw_pushback(t_stk_node *stacks[2])
 			if (current <= target - 2)
 				stk_caller_verbose(stacks, "ra");
 		}
-
 		else if (!reverse)
 			stk_caller_verbose(stacks, "rb");
 		else
@@ -108,6 +94,6 @@ void	psw_sorta(t_stk_node *stacks[2])
 		stk_caller_verbose(stacks, "rra");
 	if (stacks[0]->index > stacks[0]->next->index)
 		stk_caller_verbose(stacks, "sa");
-	if (stacks[0]->index + 1 < nxt_target)
+	if (stacks[0]->index + 1 < nxt_target) // TODO useless?
 		stk_caller_verbose(stacks, "ra");
 }

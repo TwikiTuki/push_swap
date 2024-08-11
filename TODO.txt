@@ -31,3 +31,7 @@ shudoku
 	there are shudokus with repeated numbers that are not considered an error
 	add the camera option
 	README
+
+
+push_swap
+	init_stacks should get the argc with one less because it ommits the first parameter
