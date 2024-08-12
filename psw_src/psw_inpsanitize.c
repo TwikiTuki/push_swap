@@ -15,8 +15,6 @@
 #define MAX_INT_STR "2147483647"
 #define MIN_INT_STR "-2147483648"
 
-/* #define MAXS ((char*[]) {"2147483647", "-2147483648"})*/
-
 int	psw_check(char **numbers)
 {
 	size_t	i;

@@ -13,46 +13,6 @@
 #include <stdlib.h>
 #include "push_swap.h"
 
-int init_stacks(int argc, char **argv, t_stk_node *stacks[2], int* len)
-{
-	if (argc <= 1)
-		return (0);
-	if (argc == 2 && argv[1][0] == '\0')
-		return (psw_prnt_error());
-	*len = init_stack_0(&stacks[0], argc, argv + 1);
-	stacks[1] = NULL;
-	if (!stacks[0])
-		return (psw_prnt_error());		
-	return (1);
-}
-
-size_t	init_stack_0(t_stk_node **stack, int argc, char **argv)
-{
-	char	**args;
-	size_t	len;
-
-	*stack = NULL;
-	if (argc == 2 && ft_strchr(argv[0], ' '))
-	{
-		args = ft_split(argv[0], ' ');
-		if (!args)
-			return (0);
-		len = 0;
-		while (args[len])
-			len++;
-	}
-	else
-	{
-		args = argv;
-		len = argc - 1;
-	}
-	if (psw_check(args))
-		*stack = stk_init(args, len);
-	if (argc == 2)
-		free_matrix((void **) args);
-	return (len);
-}
-
 
 int	psw_str_prnt_error(char *str)
 {

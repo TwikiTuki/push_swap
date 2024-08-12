@@ -4,8 +4,10 @@ int main(int argc, char **argv)
 {
 	t_grp_loop_data data;
 
+	printf("init stacks %d\n", argc);
 	if (!init_stacks(argc, argv, data.stacks, &data.len))
 		return (0);
+	printf("stacks initialized\n");
 	if (data.stacks[0] == 0)
 		return(0);
 	if (data.len > G_AREAS_HEIGHT)
