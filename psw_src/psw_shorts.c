@@ -105,7 +105,7 @@ void	stk_size3(t_stk_node *stacks[2])
 	}
 	str[3] = '\0';
 	i = 0;
-	while (ft_strncmp(str, COMBINATIONS[i], 4) && i < LEN) // TODO Bad protection	
+	while (i < LEN && ft_strncmp(str, COMBINATIONS[i], 4))
 		i++;
 	stk_strcaller(stacks, (SOLUTIONS[i]));
 }

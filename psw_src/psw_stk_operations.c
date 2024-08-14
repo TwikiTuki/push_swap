@@ -52,6 +52,8 @@ void	stk_push(t_stk_node **stk2, t_stk_node **stk1)
 	moved = *stk1;
 	(*stk1)->previous = NULL;
 	*stk1 = (*stk1)->next;
+	if (*stk1)
+		(*stk1)->previous = NULL;
 	if (*stk2)
 	{
 		moved->next = *stk2;

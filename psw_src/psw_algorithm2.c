@@ -94,6 +94,6 @@ void	psw_sorta(t_stk_node *stacks[2])
 		stk_caller_verbose(stacks, "rra");
 	if (stacks[0]->index > stacks[0]->next->index)
 		stk_caller_verbose(stacks, "sa");
-	if (stacks[0]->index + 1 < nxt_target) // TODO useless?
+	if (stacks[0]->index + 1 < nxt_target)
 		stk_caller_verbose(stacks, "ra");
 }

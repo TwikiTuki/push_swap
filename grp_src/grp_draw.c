@@ -1,6 +1,5 @@
 #include "graphics.h"
 
-// TODO nearly at lines limit and two lines too long
 void grp_normalize_direction(t_point *direction)
 {
 	if (direction->x > 0)
@@ -29,7 +28,6 @@ void grp_draw_square(t_mlx_img img, t_point begin, t_point size, t_point directi
 	{
 		pxlByte = img.data + begin.y * img.bytesxline;
 		pxlByte += (begin.x + i * direction.x) * img.bytesxpxl;
-		pxlByte += (img.bytesxline); //TODO why ??? 
 		color = grp_average_color(
 			scaling.color0,
 			scaling.color1,
@@ -71,7 +69,6 @@ void grp_draw_area_A(t_mlx_img img)
 	); 
 }
 
-//TODO has more than 5 args
 void grp_draw_area_B(t_mlx_img img)
 {
 	grp_draw_square(img,

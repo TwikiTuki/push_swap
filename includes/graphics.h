@@ -91,8 +91,8 @@ void grp_draw_area_A(t_mlx_img img);
 
 /* grp_print_stacks.c */
 t_color_scaling ColorScaling(int color0, int color1, coord_val max_index);
-void grp_print_index_to_A(int y_position, int order_index, t_mlx_img img, coord_val height ,int len, int y_adjustment);
-void grp_print_index_to_B(int y_position, int order_index, t_mlx_img img, coord_val height ,int len, int y_adjustment);
+void grp_print_index_to_A(int y_pos, int order_index, t_mlx_img img, coord_val height, int len, int extra_y, int extra_height);
+void grp_print_index_to_B(int y_pos, int order_index, t_mlx_img img, coord_val height, int len, int extra_y, int extra_height);
 int grp_print_stack(t_stk_node* stacks[2], t_stack_id stackid, t_mlx_img img, size_t _len);
 
 /* grp_hooks.c */

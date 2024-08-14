@@ -14,6 +14,8 @@
 
 t_stk_node	*stk_last(t_stk_node *stack)
 {
+	if (!stack)
+		return (NULL);
 	while (stack->next)
 		stack = stack->next;
 	return (stack);

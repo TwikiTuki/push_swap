@@ -1,5 +1,7 @@
 *.o
 *.d
 *.a
-push_swap
 *.swp
+push_swap
+checker
+graphics

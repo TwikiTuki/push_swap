@@ -1,6 +1,5 @@
 #include <graphics.h>
 
-//TODO fkkk
 typedef enum s_grp_loop_data_lvl
 {
 	LVL_STACKS,
@@ -29,9 +28,9 @@ int clear_loop_data(t_grp_loop_data *loop_dta, t_grp_loop_data_lvl lvl, char *er
 	}
 }
 
+	//TODO leaks
 int grp_init_graphics(t_grp_loop_data *loop_dta)
 {
-	//TODO leaks
 	t_mlx_img *img = &loop_dta->img;
 	loop_dta->mlx = mlx_init();
 	if (!loop_dta->mlx)
@@ -56,7 +55,6 @@ int grp_init_graphics(t_grp_loop_data *loop_dta)
 	grp_print_stack(loop_dta->stacks, STACK_B, loop_dta->img, loop_dta->len);
 	mlx_put_image_to_window(loop_dta->mlx, loop_dta->mlx_window,
 		loop_dta->img.img, 0, 0);
-
 	return 1;
 }
 
