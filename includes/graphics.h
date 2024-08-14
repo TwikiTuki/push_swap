@@ -79,6 +79,7 @@ typedef	struct	s_point
 
 /* grp_utils.c */
 t_point Point(coord_val x, coord_val y);
+t_color_scaling ColorScaling(int color0, int color1, coord_val max_pxl);
 int min(int val0, int val1);
 char grp_average_char(unsigned char color0, unsigned char color1, t_point division);
 int grp_average_color(unsigned int color0, unsigned int color1, t_point division);

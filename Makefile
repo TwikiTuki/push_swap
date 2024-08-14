@@ -26,7 +26,7 @@ INCLUDES=$(addprefix -I, $(HEADERS_DIR) $(MINILIBX_DIR) $(LIB_FT_HEADERS_DIRS))
 PSW_NAME=push_swap
 PSW_DIR=psw_src/
 PSW_MAIN=$(PSW_DIR)push_swap.o
-PSW_SRCS_NAMES=psw_stk_basics.c psw_stk_operations.c psw_inpsanitize.c psw_algorithm.c psw_algorithm2.c psw_shorts.c psw_utils.c
+PSW_SRCS_NAMES=psw_stk_basics.c psw_stk_operations.c psw_inpsanitize.c psw_algorithm.c psw_algorithm2.c psw_shorts.c psw_utils.c psw_init.c
 PSW_SRCS_PATH=$(addprefix $(PSW_DIR), $(PSW_SRCS_NAMES))
 PSW_SRCS=$(PSW_SRCS_PATH)
 PSW_OBJS=$(addprefix $(OBJS_ND_DEPS), $(PSW_SRCS:.c=.o))
