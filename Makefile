@@ -71,60 +71,47 @@ prnt: #$(PSW_NAME)
 	echo
 	@echo HEADERS $(HEADERS)
 
-objsdir:
+objsdir: # TODO deprecated
 	mkdir -p $(OBJS_ND_DEPS)
 	mkdir -p $(OBJS_ND_DEPS)$(PSW_DIR)
 	mkdir -p $(OBJS_ND_DEPS)$(CHK_DIR)
 	mkdir -p $(OBJS_ND_DEPS)$(GRP_DIR)
+
+$(OBJS_ND_DEPS)%:
+	mkdir -p $@
 	
-$(PSW_NAME): objsdir $(PSW_OBJS) $(OBJS_ND_DEPS)$(PSW_MAIN) $(HEADERS) Makefile
-	@echo $(CYANCOLOR) "::: RULE FOR" $(@) $(NOCOLOR)
-	make -C $(LIB_DIR) G=$(G) 
+$(PSW_NAME): $(OBJS_ND_DEPS)$(PSW_DIR) $(PSW_OBJS) $(OBJS_ND_DEPS)$(PSW_MAIN) $(HEADERS) Makefile
 	@echo $(CYANCOLOR)"::: MAKING :::" $(@) $(NOCOLOR)
+	make -C $(LIB_DIR) G=$(G) 
 	$(CC) $(PPF) $(PSW_OBJS) $(OBJS_ND_DEPS)$(PSW_MAIN) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(PSW_NAME) $(G)  
 	@echo $(CYANCOLOR)"::: done :::" $(@) $(NOCOLOR)
 
-$(CHK_NAME):  objsdir $(PSW_OBJS) $(CHK_OBJS) $(OBJS_ND_DEPS)$(CHK_MAIN) $(HEADERS) Makefile
+$(CHK_NAME): $(OBJS_ND_DEPS)$(CHK_DIR) $(PSW_OBJS) $(CHK_OBJS) $(OBJS_ND_DEPS)$(CHK_MAIN) $(HEADERS) Makefile
+	@echo $(CYANCOLOR)"::: MAKING :::" $(@) $(NOCOLOR)
 	@echo "::: minilibx"
 	make -C $(MINILIBX_DIR)
 	@echo "::: libft"
 	make -C $(LIB_DIR) G=$(G) 
 	@echo " ::: ::: making checker"
 	$(CC) $(PPF) $(PSW_OBJS) $(CHK_OBJS) $(OBJS_ND_DEPS)$(CHK_MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(CHK_NAME) $(G)  
+	@echo $(CYANCOLOR)"::: done :::" $(@) $(NOCOLOR)
 
-$(GRP_NAME):  objsdir $(PSW_OBJS) $(CHK_OBJS) $(GRP_OBJS) $(OBJS_ND_DEPS)$(GRP_MAIN) $(HEADERS) Makefile
+$(GRP_NAME): $(OBJS_ND_DEPS)$(GRP_DIR) $(PSW_OBJS) $(CHK_OBJS) $(GRP_OBJS) $(OBJS_ND_DEPS)$(GRP_MAIN) $(HEADERS) Makefile
+	@echo $(CYANCOLOR)"::: MAKING :::" $(@) $(NOCOLOR)
 	@echo "::: minilibx"
 	make -C $(MINILIBX_DIR)
 	@echo "::: libft"
 	make -C $(LIB_DIR) G=$(G) 
 	@echo " ::: ::: making checker"
 	$(CC) $(PPF) $(PSW_OBJS) $(CHK_OBJS) $(GRP_OBJS) $(OBJS_ND_DEPS)$(GRP_MAIN) -L$(MINILIBX_DIR) -l$(MINILIBX_NAME) -L $(LIB_DIR) -lXext -lX11 -l $(LIB) -o $(GRP_NAME) $(G)  
-
-#$(OBJS_ND_DEPS)$(CHK_DIR)%.o: %.c $(HEADERS)
-#	@echo "::: MAKING" $(@)
-#	@ echo " ::: ::: making checker stufff"
-#	mkdir -p $(OBJS_ND_DEPS)
-#	$(CC) $(PPF) -MMD -c $(CHK_DIR)$< -o $@ $(G)
+	@echo $(CYANCOLOR)"::: done :::" $(@) $(NOCOLOR)
 
 $(OBJS_ND_DEPS)%.o: %.c $(HEADERS)
 	@echo "    making" $(@)
 	mkdir -p $(OBJS_ND_DEPS)
 	$(CC) $(PPF) -MMD -c $< -o $@ $(G)
 
-#objs_nd_deps/checker.o: checker_src/checker.c
-#	echo  $(REDCOLOR) helllllowwwww $(NOCOLOR)
-#	mkdir -p $(OBJS_ND_DEPS)
-#	$(CC) $(PPF) -MMD -c $< -o $@ $(G)
-
-#objs_nd_deps/chk_src/chk_utils.o: checker_src/chk_utils.c
-#	@echo $(REDCOLOR) "helllllowwwww" $(NOCOLOR)
-#	mkdir -p $(OBJS_ND_DEPS)
-#	$(CC) $(PPF) -MMD -c $< -o $@ $(G)
-
 objs_nd_deps/chk_src/psw_graphics.o: checker_src/psw_graphics.c
-#	@echo $(REDCOLOR) "helllllowwwww" $(NOCOLOR)
-#	mkdir -p $(OBJS_ND_DEPS)
-#	$(CC) $(PPF) -MMD -c $< -o $@ $(G)
 
 bonus: $(BONUS) 
 
