@@ -10,7 +10,8 @@ t_color_scaling ColorScaling(int color0, int color1, coord_val max_pxl)
 	return (scaling);
 }
 
-void grp_print_index_to_A(int y_pos, int order_index, t_mlx_img img, coord_val height, int len, int extra_y, int extra_height)
+void grp_print_index_to_A(int y_pos, int order_index, t_mlx_img img, coord_val height, int len,
+	int extra_y, int extra_height)
 {
 	grp_draw_square(img,
 		Point(G_X_BEGIN_A, G_Y_BEGIN_A - y_pos* height - extra_y),
@@ -50,7 +51,7 @@ int grp_print_stack(t_stk_node* stacks[2], t_stack_id stackid, t_mlx_img img, si
 	i = 0;
 	while (node)
 	{
-		if (i >= extra_triger * extra_y)
+		if (extra_pxls && i >= extra_triger * extra_y)
 			extra_height = 1;
 		if (stackid == STACK_A)
 			grp_print_index_to_A(i, node->index, img, height, len, extra_y, extra_height);
