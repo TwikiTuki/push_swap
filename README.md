@@ -8,7 +8,7 @@ make
 export nums="5 6 3 2 8 10"; ./push_swap$numbers | ./graphics $numbers 
 ```
 
-The first two lines prepare the project and only have to be executed the first time. While the last one is the one that executes it and can be run with numbers different thant "5 6 3 2 8 10". Pressing space is needed to make the program execute the actions. [Here](#graphics-controls) there is mor info about the graphics commands
+The first two lines prepare the project and only have to be executed the first time. While the last one is the one that executes it and can be run with numbers different thant "5 6 3 2 8 10". Pressing space is needed to make the program execute the actions. [Here](#graphics-controls) there is more info about the graphics commands
 
 ## STACK BASICS
 A stack is a pile of numbers with a set of instructions to modify it. The instructions are:
