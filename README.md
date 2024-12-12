@@ -7,6 +7,7 @@ make deps
 make
 export nums="5 6 3 2 8 10"; ./push_swap$numbers | ./graphics $numbers 
 ```
+> *This project was developed for linux, suport for other systems is not guaranteed, spelcyally the graphic part*
 
 The first two lines prepare the project and only have to be executed the first time. While the last one is the one that executes it and can be run with numbers different thant "5 6 3 2 8 10". Pressing space is needed to make the program execute the actions. [Here](#graphics-controls) there is more info about the graphics commands
 
